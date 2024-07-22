@@ -6,23 +6,26 @@ use App\Http\Requests\AuthRequest;
 use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Services\MailService;
+use App\Services\PasswordResetService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
     protected $authService;
     protected $mailService;
+    protected $passwordResetService;
 
-    public function __construct(AuthService $authService, MailService $mailService)
+    public function __construct(AuthService $authService, MailService $mailService, PasswordResetService $passwordResetService)
     {
         $this->authService = $authService;
         $this->mailService = $mailService;
+        $this->passwordResetService = $passwordResetService;
     }
 
     public function register(AuthRequest $request)
     {
-        $data = $request->validated(
-        );
+        $data = $request->validated();
         $result = $this->authService->register($data);
         $user = $result['user'];
         $token = $result['token'];
@@ -56,7 +59,7 @@ class AuthController extends Controller
         if (!$token) {
             return response()->json(['message' => 'Invalid login credentials'], 401);
         }
-        
+
         $auth = Auth::user();
         return response()->json([
             'auth' => $auth,
@@ -72,5 +75,28 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Logged out successfully'
         ]);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate(['email' => 'required|string|email']);
+        $result = $this->passwordResetService->sendResetCode($request->email);
+
+        if (!$result) {
+            return response()->json(['message' => 'Email not found'], 404);
+        }
+
+        return response()->json(['message' => 'Reset code sent to email']);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $result = $this->passwordResetService->resetPassword($request->email, $request->code, $request->password);
+
+        if (!$result) {
+            return response()->json(['message' => 'Invalid reset code or email'], 400);
+        }
+
+        return response()->json(['message' => 'Password reset successfully', 'result' => $result]);
     }
 }
