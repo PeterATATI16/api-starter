@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\PasswordResetConfirmationMail;
 use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -55,6 +56,7 @@ class PasswordResetService
         $user->save();
 
         DB::table('password_resets')->where('email', $email)->delete();
+        Mail::to($email)->send(new PasswordResetConfirmationMail($user));
         return $user;
     }
 }
