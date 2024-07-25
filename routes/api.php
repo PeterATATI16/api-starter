@@ -5,6 +5,7 @@ use App\Http\Controllers\ActionLogController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\CommandController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -29,6 +30,10 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('log.action:Logout,User logged out');
     Route::apiResource('users', UserController::class)->middleware('log.action:Users Management,User management accessed');
+
+    Route::controller(LogController::class)->group(function () {
+        Route::get('/logs', 'index');
+    });
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard-items', 'dashboardItems')->middleware('log.action:Dashboard Viewed,User viewed dashboard');

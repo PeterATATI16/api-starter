@@ -18,7 +18,7 @@ class LogAction
         if (Auth::check()) {
             ActionLog::create([
                 'action' => $action,
-                'user' => Auth::user()->id,
+                'user' => Auth::check() ? Auth::user()->id : null,
                 'description' => $description ?? "No description provided",
             ]);
         }

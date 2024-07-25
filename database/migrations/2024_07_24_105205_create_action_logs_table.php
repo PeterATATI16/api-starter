@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('action_logs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('action');
-            $table->string('user');
+            $table->string('user')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

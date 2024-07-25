@@ -81,12 +81,6 @@ class DashboardController extends Controller
         return $months;
     }
 
-    public function actionsLog()
-    {
-        $logs = ActionLog::orderBy('created_at', 'desc')->with('user')->get();
-        return $logs;
-    }
-
     public function dashboardItems()
     {
         $users = $this->users();
@@ -94,7 +88,6 @@ class DashboardController extends Controller
         $currentMonthCount = $this->usersCurrentMonth();
         $currentDayCount = $this->usersCurrentDay();
         $currentYearCount = $this->usersCurrentYear();
-        $logs = $this->actionsLog();
 
         $data = [
             "users" => $users,
@@ -102,7 +95,6 @@ class DashboardController extends Controller
             "currentMonth" => $currentMonthCount,
             "currentDay" => $currentDayCount,
             "currentYear" => $currentYearCount,
-            "logs" => $logs,
         ];
 
         return response()->json($data, 200);
