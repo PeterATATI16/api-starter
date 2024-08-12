@@ -6,6 +6,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\CommandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -38,6 +39,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard-items', 'dashboardItems')->middleware('log.action:Dashboard Viewed,User viewed dashboard');
     });
+
+    Route::prefix('roles')->group(function () {
+        Route::controller(RoleController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/store', 'store');
+            Route::get('/show/{id}', 'show');
+            Route::put('/update/{id}', 'update');
+            Route::delete('/delete/{id}', 'destroy');
+            Route::patch('/{id}/toggle-active', 'toggleActive');
+        });
+    });
+
 });
 
 Route::controller(CommandController::class)->group(function () {

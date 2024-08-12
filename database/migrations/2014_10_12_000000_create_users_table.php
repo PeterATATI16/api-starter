@@ -16,6 +16,14 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone')->nullable();
+            $table->string('profile')->nullable();
+            $table->unsignedBigInteger('role_id')->default(1);
+            $table->uuid('user_id')->nullable();
+
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+
             $table->rememberToken();
             $table->timestamps();
         });

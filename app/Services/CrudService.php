@@ -19,6 +19,19 @@ class CrudService
         return $this->model::all();
     }
 
+    public function store(Request $request)
+    {
+        $data = $request->all();
+
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        $instance = $this->model::create($data);
+        return $instance;
+    }
+
+
     public function show($id)
     {
         return $this->model::find($id);
@@ -51,4 +64,21 @@ class CrudService
         $instance->delete();
         return $instance;
     }
+
+    public function toggleAttribute($id, $attribute)
+    {
+        $instance = $this->model::find($id);
+        if (!$instance) {
+            return null;
+        }
+
+        if (!array_key_exists($attribute, $instance->getAttributes())) {
+            throw new \InvalidArgumentException("Attribute {$attribute} does not exist on model.");
+        }
+
+        $instance->$attribute = !$instance->$attribute;
+        $instance->save();
+        return $instance;
+    }
+
 }
