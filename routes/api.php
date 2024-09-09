@@ -32,6 +32,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('log.action:Logout,User logged out');
     Route::apiResource('users', UserController::class)->middleware('log.action:Users Management,User management accessed');
 
+    Route::controller(UserController::class)->group(function () {
+        Route::post('/users/imports', 'import');
+    });
     Route::controller(LogController::class)->group(function () {
         Route::get('/logs', 'index');
     });

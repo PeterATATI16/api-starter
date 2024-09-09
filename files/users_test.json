@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Alice Smith",
+        "email": "alice.smith@example.com",
+        "role_id": 2
+    },
+    {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "role_id": 1
+    },
+    {
+        "name": "Emma Johnson",
+        "email": "emma.johnson@example.com",
+        "role_id": 3
+    }
+]
