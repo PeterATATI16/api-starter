@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace  App\Services\Mail;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegisterMail;

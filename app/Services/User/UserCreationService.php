@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\GenericPasswordMail;
+use  App\Services\Mail\GenericMailService;
+use App\Services\Auth\PasswordGeneratorService;
 
 class UserCreationService
 {

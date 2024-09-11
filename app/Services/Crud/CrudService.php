@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace App\Services\Crud;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;

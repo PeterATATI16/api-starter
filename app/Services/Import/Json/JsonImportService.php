@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Import\Json;
+use App\Services\Import\ImportServiceInterface;
+use App\Services\User\UserCreationService;
 
 class JsonImportService implements ImportServiceInterface
 {

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Import\Excel;
+use App\Services\Import\ImportServiceInterface;
+use App\Services\User\UserCreationService;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UserImport;

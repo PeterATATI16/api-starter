@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Services\CrudService;
-use App\Services\ImportManager;
+use App\Services\Crud\CrudService;
+use App\Services\Import\ImportManager;
 use Illuminate\Http\Request;
 
 class UserController extends Controller

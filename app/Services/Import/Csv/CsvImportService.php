@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Services;
-
+namespace App\Services\Import\Csv;
+use App\Services\Import\ImportServiceInterface;
+use App\Services\User\UserCreationService;
 use League\Csv\Reader;
 
 class CsvImportService implements ImportServiceInterface

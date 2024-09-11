@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
 use Illuminate\Http\Request;
-use App\Services\AuthService;
-use App\Services\MailService;
-use App\Services\PasswordResetService;
+use App\Services\Auth\AuthService;
+use App\Services\Mail\MailService;
+use App\Services\Auth\PasswordResetService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
